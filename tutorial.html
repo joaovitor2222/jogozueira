@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial - Reverse Tower Defense</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1e1e1e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #00aaff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #333;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            background: #00aaff;
+            color: black;
+        }
+
+        .step-content {
+            display: none;
+            padding-top: 10px;
+        }
+
+        .troop-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .troop-table th, .troop-table td {
+            padding: 8px;
+            border: 1px solid #00aaff;
+        }
+
+        .troop-table th {
+            background-color: #00aaff;
+            color: black;
+        }
+
+        button {
+            background: #00aaff;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0088cc;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎮 Tutorial - Reverse Tower Defense</h1>
+
+    <div class="container">
+        
+        <div class="step" onclick="toggleStep(1)">
+            <h2>📌 Objetivo do Jogo</h2>
+            <div class="step-content" id="step1">
+                <p>O objetivo é reduzir a <b>vida da IA a zero</b> enviando tropas pelo campo de batalha. Mas cuidado! A IA se defende colocando torres automaticamente.</p>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(2)">
+            <h2>🎯 Escolha a Dificuldade</h2>
+            <div class="step-content" id="step2">
+                <p>Antes de começar, escolha uma dificuldade:</p>
+                <ul>
+                    <li>🟢 <b>Fácil:</b> Menos torres, vida menor.</li>
+                    <li>🟡 <b>Médio:</b> Desafio equilibrado.</li>
+                    <li>🔴 <b>Difícil:</b> IA mais resistente.</li>
+                    <li>☠️ <b>Hardcore:</b> IA coloca torres estrategicamente para contra-atacar!</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(3)">
+            <h2>💰 Como Ganhar Moedas</h2>
+            <div class="step-content" id="step3">
+                <p>Você começa com <b>1000 moedas</b> e ganha <b>+100 moedas a cada 2.6 segundos</b>. Coloque <b>mineiros</b> para aumentar os ganhos (+50 moedas cada).</p>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(4)">
+            <h2>⚔️ Comprando Tropas</h2>
+            <div class="step-content" id="step4">
+                <table class="troop-table">
+                    <tr>
+                        <th>Tropa</th>
+                        <th>Custo</th>
+                        <th>Vida</th>
+                        <th>Velocidade</th>
+                        <th>Vantagem</th>
+                    </tr>
+                    <tr>
+                        <td>Goblin 🟢</td>
+                        <td>50</td>
+                        <td>30</td>
+                        <td>Muito Rápida</td>
+                        <td>Barato e rápido, mas tem pouca vida.</td>
+                    </tr>
+                    <tr>
+                        <td>Bárbaro 🟡</td>
+                        <td>100</td>
+                        <td>300</td>
+                        <td>Média</td>
+                        <td>Uma tropa barata e equilibrada.</td>
+                    </tr>
+                    <tr>
+                        <td>Mineiro ⛏️</td>
+                        <td>100</td>
+                        <td>50</td>
+                        <td>Lenta</td>
+                        <td>Gera 50 moedas extras a cada ciclo de economia.</td>
+                    </tr>
+                    <tr>
+                        <td>Ninja 🌀</td>
+                        <td>300</td>
+                        <td>350</td>
+                        <td>Rápida</td>
+                        <td>Ganha velocidade extra por 5s após ser gerado.</td>
+                    </tr>
+                    <tr>
+                        <td>Defensor 🛡️</td>
+                        <td>500</td>
+                        <td>900</td>
+                        <td>Lenta</td>
+                        <td>Possui um escudo que reduz 60% do dano recebido.</td>
+                    </tr>
+                    <tr>
+                        <td>Chefe 👑</td>
+                        <td>1800</td>
+                        <td>4000</td>
+                        <td>Muito Lenta</td>
+                        <td>Extremamente resistente e invoca 2 tropas ao morrer.</td>
+                    </tr>
+                    <tr>
+                        <td>Spawnador 👹</td>
+                        <td>250</td>
+                        <td>200</td> <!-- Vida -->
+                        <td>Média</td> <!-- Velocidade -->
+                        <td>Ao morrer, invoca 4 minions pequenos.</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(5)">
+            <h2>🏰 A IA Contra-Ataca!</h2>
+            <div class="step-content" id="step5">
+                <p>A IA coloca torres automaticamente para se defender. Tipos de torres:</p>
+                <ul>
+                    <li>💜 <b>Torre Pesada:</b> Lenta, mas dá muito dano.</li>
+                    <li>🧡 <b>Torre Rápida:</b> Atira rápido, mas dano baixo.</li>
+                    <li>💛 <b>Torre Balanceada:</b> Equilíbrio entre dano e velocidade.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(6)">
+            <h2>🏆 Como Vencer?</h2>
+            <div class="step-content" id="step6">
+                <p>Se suas tropas atravessarem o campo e atingirem a base inimiga, a IA perde vida.</p>
+                <p>Se a vida da IA chegar a <b>zero</b>, você <b>vence!</b> 🎉</p>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(7)">
+            <strong><h2>📖Créditos:</h2></strong>
+
+            <div class="step-content" id="step7">
+        
+            <ul style="text-align: left;">
+                <li><strong>Meu canal:</strong> <a href="https://www.youtube.com/@ArturGamesMods_OFC" target="_blank">Artur Games e Mods</a></li>
+                <li><strong>ChatGPT:</strong> <a href="https://chatgpt.com/" target="_blank">https://chatgpt.com/</a></li>
+                <li><strong>Canal do meu irmão:</strong> <a href="https://www.youtube.com/@isobu2222" target="_blank">Isobu</a></li>
+                <li><strong>Parceiros:</strong>
+                    <ul>
+                        <li>Arabian Brazilian Proasso – <a href="https://www.youtube.com/@brazilianyt-nf8" target="_blank">Canal</a></li>
+                        <li>Loft Craft – <a href="https://www.youtube.com/@loftcraft348" target="_blank">Canal</a></li>
+                        <li>RIOBALL🇧🇷 (AG) #NuevaEraSitcker – <a href="https://www.youtube.com/@RIOBALL300" target="_blank">Canal</a></li>
+                        <li>Vitor Neves – <a href="https://www.youtube.com/@vitorneves1162" target="_blank">Canal</a></li>
+                        <li>China Ball Oficial – <a href="https://www.youtube.com/@china_balloficialseinscreva" target="_blank">Canal</a></li>
+                        <li>Duan Countryballs – <a href="https://www.youtube.com/@Duanzitoyytofc01" target="_blank">Canal</a></li>
+                        <li>🇵🇾Paraguai Redondo – <a href="https://www.youtube.com/@Paraguaibola" target="_blank">Canal</a></li>
+                        <li>_WhiteBalls01 – <a href="https://www.youtube.com/@WhiteBalls" target="_blank">Canal</a></li>
+                        <li>BislachaZoa – <a href="https://www.youtube.com/@BislachaZoa" target="_blank">Canal</a></li>
+                        <li>Cauã Rsmos Country – <a href="https://www.youtube.com/@cauarsmos1345" target="_blank">Canal</a></li>
+                        <li>Brasil Ball – <a href="https://www.youtube.com/@brasilball_01" target="_blank">Canal</a></li>
+                        <li>Juninho Original – <a href="https://www.youtube.com/@Juninhocountryball" target="_blank">Canal</a> <span style="color: red;">se inscrevam no canal dele pq ele perdeu o canal 😥 </span></li>
+                        <li>Player – <a href="https://www.youtube.com/@Player2-b3t" target="_blank">Canal</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </div>
+        </div>
+        
+
+        <button onclick="window.location.href='index.html'">🔙 Voltar ao Jogo</button>
+
+    </div>
+
+    
+
+    <script>
+        function toggleStep(stepNumber) {
+            let stepContent = document.getElementById(`step${stepNumber}`);
+            if (stepContent.style.display === "block") {
+                stepContent.style.display = "none";
+            } else {
+                stepContent.style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+</html>

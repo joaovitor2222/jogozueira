@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modo PvP - Reverse Tower Defense</title>
+    <link rel="stylesheet" href="pvp.css">
+</head>
+<body>
+    <h1>Modo PvP</h1>
+
+    <h2>Configuração:</h2>
+    <label>Vidas (Player 1):</label>
+    <input type="number" id="playerLives" value="20" min="1">
+    <br>
+    <label>Moedas Iniciais (Player 2):</label>
+    <input type="number" id="player2Coins" value="1000" min="0">
+    <br>
+    <label>Geração de Moedas (Player 2):</label>
+    <input type="number" id="player2CoinRate" value="100" min="0">
+    <br><br>
+
+    <h2>Status do Jogo</h2>
+    <p>❤️ Vida do Player 1: <span id="playerLives">20</span></p>
+    <p>💰 Ouro do Player 2: <span id="player2Coins">1000</span></p>
+
+    <h2>Player 1 - Posicione Torres</h2>
+    <div id="towerShop">
+        <button class="towerBtn" data-tower="heavy">Torre Pesada</button>
+        <button class="towerBtn" data-tower="fast">Torre Rápida</button>
+        <button class="towerBtn" data-tower="balanced">Torre Balanceada</button>
+    </div>
+
+    <h2>Player 2 - Envie Tropas</h2>
+    <div id="troopShop"></div>
+
+    <div id="gameArea"></div>
+
+    <button id="endTurn">Pular Turno</button>
+    <button id="backToMenu">Voltar ao Menu</button>
+
+    <script src="pvp.js"></script>
+
+    <script>
+        document.getElementById("backToMenu").addEventListener("click", () => {
+            window.location.href = "index.html";
+        });
+
+        // Atualiza os valores iniciais ao mudar as configurações
+        document.getElementById("playerLivesInput").addEventListener("input", function() {
+            document.getElementById("playerLives").textContent = this.value;
+        });
+
+        document.getElementById("player2CoinsInput").addEventListener("input", function() {
+            document.getElementById("player2Coins").textContent = this.value;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Tower Defense</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Reverse Tower Defense</h1>
+    <h2>Moedas: <span id="coins">1000</span></h2>
+    <h2>Vida da IA: <span id="aiLives">20</span></h2>
+    
+    <label>Dificuldade:</label>
+    <select id="difficulty">
+        <option value="easy">Fácil</option>
+        <option value="medium">Médio</option>
+        <option value="hard">Difícil</option>
+        <option value="hardcore">Hardcore</option>
+    </select>
+
+    <div id="troopShop">
+        <button class="troopBtn" data-troop="ninja">Ninja (300)</button>
+        <button class="troopBtn" data-troop="defensor">Defensor (500)</button>
+        <button class="troopBtn" data-troop="spawnador">Spawnador (250)</button>
+        <button class="troopBtn" data-troop="barbaro">Bárbaro (100)</button>
+        <button class="troopBtn" data-troop="goblin">Goblin (50)</button>
+        <button class="troopBtn" data-troop="chefe">Chefe (1800)</button>
+        <button class="troopBtn" data-troop="mineiro">Mineiro (100)</button>
+    </div>
+
+    <div id="gameArea"></div>
+
+    <div id="shop"></div>
+
+    <br>
+    <button onclick="location.href='pvp.html'">Modo PvP</button>
+
+    <button onclick="window.location.href='tutorial.html'" style="
+    background: #00aaff;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+">📖 Tutorial</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

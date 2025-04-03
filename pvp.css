@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #222;
+    color: white;
+}
+
+#gameArea {
+    width: 800px;
+    height: 400px;
+    background-color: #444;
+    margin: 20px auto;
+    position: relative;
+    border: 2px solid white;
+    overflow: hidden;
+}
+
+.troop {
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    border-radius: 50%;
+}
+
+.tower {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-color: red;
+    border-radius: 5px;
+}
+
+.projectile {
+    width: 8px;
+    height: 8px;
+    background-color: yellow;
+    position: absolute;
+    border-radius: 50%;
+}
+
+#towerShop {
+    margin: 10px;
+}
+
+.towerBtn {
+    margin: 5px;
+    padding: 10px;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.towerBtn:hover {
+    background-color: #005f73;
+}
