@@ -76,22 +76,49 @@ document.addEventListener("DOMContentLoaded", () => {
         updateHealthBars(troop);
     }
 
-    function createUpgradeButtons(troop) {
-    const upgradePanel = document.createElement("div");
-    upgradePanel.classList.add("upgrade-panel");
+    const troopUpgrades = {};
+Object.keys(troopTypes).forEach(type => {
+    troopUpgrades[type] = {
+        life: 0,
+        speed: 0,
+        shield: 0
+    };
+});
 
-    ["life", "speed", "shield"].forEach(stat => {
-        if (stat === "shield" && troop.type !== "defensor") return;
+    function upgradeTroopType(type, stat) {
+    let level = troopUpgrades[type][stat];
+    if (level >= 5) return;
 
-        const btn = document.createElement("button");
-        btn.textContent = `Upgrade ${stat}`;
-        btn.addEventListener("click", () => upgradeTroop(troop, stat));
-
-        upgradePanel.appendChild(btn);
-    });
-
-    shopContainer.appendChild(upgradePanel);
+    let cost = upgrades[stat][level];
+    if (discounts[type]) {
+        cost *= discounts[type];
     }
+
+    if (coins < cost) return;
+    coins -= cost;
+    updateCoins();
+
+    troopUpgrades[type][stat] += 1;
+}
+
+    function createGlobalUpgradeButtons() {
+    ["goblin", "barbaro", "defensor", "mineiro"].forEach(type => {
+        const troopGroup = document.createElement("div");
+        troopGroup.textContent = `Upgrades de ${type.toUpperCase()}: `;
+
+        ["life", "speed", "shield"].forEach(stat => {
+            if (stat === "shield" && type !== "defensor") return;
+
+            const btn = document.createElement("button");
+            btn.textContent = `+ ${stat}`;
+            btn.addEventListener("click", () => upgradeTroopType(type, stat));
+            troopGroup.appendChild(btn);
+        });
+
+        shopContainer.appendChild(troopGroup);
+    });
+}
+
 
     function spawnTroop(type) {
         if (coins < troopTypes[type].cost) return;
@@ -130,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
         troops.push(troop);
         moveTroop(troop);
 
-        createUpgradeButtons(troop);
+
     }
 
     function updateHealthBars(troop) {
