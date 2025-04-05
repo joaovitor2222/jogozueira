@@ -351,4 +351,5 @@ Object.keys(troopTypes).forEach(type => {
 
     difficultySelect.addEventListener("change", startGame);
     startGame();
+    createGlobalUpgradeButtons();
 });
