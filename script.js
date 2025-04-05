@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const upgrades = {
-        life: [100, 500, 1000, 1900, 3000],
-        speed: [100, 500, 1000, 1900, 3000],
-        shield: [100, 500, 1000, 1900, 3000]
+        life: [100, 500, 1000, 1900, 3000, 3500],
+        speed: [100, 500, 1000, 1900, 3000, 3500],
+        shield: [100, 500, 1000, 1900, 3000, 3500]
     };
     
     const discounts = {
@@ -100,8 +100,8 @@ function upgradeTroopType(type, stat) {
         alert("Máximo de 4 upgrades de escudo atingido!");
         return;
     }
-    if (total >= 5) {
-        alert("Máximo de 5 upgrades totais por tropa atingido!");
+    if (total >= 6) {
+        alert("Máximo de 6 upgrades totais por tropa atingido!");
         return;
     }
 
