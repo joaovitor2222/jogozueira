@@ -106,9 +106,10 @@ function upgradeTroopType(type, stat) {
     }
 
     let cost = upgrades[stat][level];
-    if (discounts[type]) {
-        cost *= discounts[type];
+    if (discounts[type] !== undefined) {
+        cost = Math.floor(cost * discounts[type]);
     }
+
 
     if (coins < cost) return;
     coins -= cost;
