@@ -76,18 +76,34 @@ document.addEventListener("DOMContentLoaded", () => {
         updateHealthBars(troop);
     }
 
-    const troopUpgrades = {};
+const troopUpgrades = {};
 Object.keys(troopTypes).forEach(type => {
     troopUpgrades[type] = {
         life: 0,
         speed: 0,
-        shield: 0
+        shield: 0,
+        total: 0 // novo contador total de upgrades
     };
 });
 
-    function upgradeTroopType(type, stat) {
+
+function upgradeTroopType(type, stat) {
     let level = troopUpgrades[type][stat];
-    if (level >= 5) return;
+    let total = troopUpgrades[type].total;
+
+    // Limites específicos
+    if (stat === "life" && level >= 5) {
+        alert("Máximo de 5 upgrades de vida atingido!");
+        return;
+    }
+    if (stat === "shield" && level >= 4) {
+        alert("Máximo de 4 upgrades de escudo atingido!");
+        return;
+    }
+    if (total >= 3) {
+        alert("Máximo de 3 upgrades totais por tropa atingido!");
+        return;
+    }
 
     let cost = upgrades[stat][level];
     if (discounts[type]) {
@@ -99,10 +115,25 @@ Object.keys(troopTypes).forEach(type => {
     updateCoins();
 
     troopUpgrades[type][stat] += 1;
+    troopUpgrades[type].total += 1;
+
+    // Atualiza stats base (afeta tropas futuras)
+    const baseStats = troopTypes[type];
+    if (stat === "life") {
+        baseStats.hp *= 1.2; // +20% por upgrade
+    } else if (stat === "speed") {
+        // Aumenta em 25% por upgrade (até 75% máx)
+        let newSpeed = baseStats.speed * 1.25;
+        baseStats.speed = Math.min(baseStats.speed * 1.25, troopTypes[type].speed * 1.75);
+    } else if (stat === "shield" && type === "defensor") {
+        // Cada upgrade aumenta o escudo (vida extra) em +25%
+        baseStats.shield = (baseStats.shield || 0.6) * 1.25;
+    }
 }
 
-    function createGlobalUpgradeButtons() {
-    ["goblin", "barbaro", "defensor", "mineiro"].forEach(type => {
+
+function createGlobalUpgradeButtons() {
+    ["goblin", "barbaro", "defensor", "mineiro", "chefe", "spawnador", "ninja"].forEach(type => {
         const troopGroup = document.createElement("div");
         troopGroup.textContent = `Upgrades de ${type.toUpperCase()}: `;
 
@@ -118,6 +149,7 @@ Object.keys(troopTypes).forEach(type => {
         shopContainer.appendChild(troopGroup);
     });
 }
+
 
 
     function spawnTroop(type) {
