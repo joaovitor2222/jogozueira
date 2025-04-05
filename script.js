@@ -100,8 +100,8 @@ function upgradeTroopType(type, stat) {
         alert("Máximo de 4 upgrades de escudo atingido!");
         return;
     }
-    if (total >= 6) {
-        alert("Máximo de 6 upgrades totais por tropa atingido!");
+    if (total >= 5) {
+        alert("Máximo de 5 upgrades totais por tropa atingido!");
         return;
     }
 
